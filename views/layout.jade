@@ -21,15 +21,15 @@ html
               console.log('adding ' + myTagList[i]);
               $('#tags-list').append('<li class = "tag">' + myTagList[i] + '</li>');
             }
+            $('.tag').each(function(index, tag) {
+              $(this).click(function() {
+                console.log($(this).text());
+                search($(this).text());
+              });
+            });
           });
         });
 
-        $('.tag').each(function(index, tag) {
-          $(this).click(function() {
-            console.log($(this).text());
-            search($(this).text());
-          });
-        });
 
         $('#help').hover(function() {
           $('#about').toggleClass('noshow');
