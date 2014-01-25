@@ -42,45 +42,12 @@ mixin picture-choices()
         td#pic4.pic
           +small-picture()
 
-mixin tags
+mixin tags(showTags)
   td(valign="top")
     div.tag-title Tags:
     div.tags
-      ul
-        li never
-        li gonna
-        li give
-        li you
-        li up
-        li never
-        li gonna
-        li let
-        li you
-        li down
-        li never
-        li gonna
-        li run
-        li around
-        li and
-        li hurt
-        li you
-        li never
-        li gonna
-        li make
-        li you
-        li cry
-        li never
-        li gonna
-        li say
-        li goodbye
-        li never
-        li gonna
-        li run
-        li and
-        li hide
-        li and
-        li desert
-        li you
+      if showTags
+        ul
 
 mixin choose-picture
   table
@@ -88,7 +55,7 @@ mixin choose-picture
       tr
         td
           +picture-choices()
-          +tags()
+          +tags(false)
   
 mixin choose-tag
   table
@@ -98,7 +65,7 @@ mixin choose-tag
           - var picSize = 430
           img(src="public/images/instacat.jpeg" alt=":(" width="#{picSize}" height="#{picSize}")#chosen-pic
         td
-          +tags()
+          +tags(true)
   
 block content
   h1 
