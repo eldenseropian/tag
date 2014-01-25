@@ -9,6 +9,10 @@ table {
 .noshow {
   display: none;
 }
+#about {
+  position: absolute;
+  width: 21em;
+}
 #help {
   border: 2px dotted #ffa500;
   border-radius: 1em;
@@ -19,6 +23,9 @@ table {
 }
 #picture-choices td {
   padding: 0.25em;
+}
+#previous-link:hover {
+  color: #ffa500;
 }
 #status {
   margin-top: 2.5em;

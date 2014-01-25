@@ -2,7 +2,7 @@ extends layout
 
 mixin small-picture
   - var picSize = 225
-  img(src="public/images/instacat.jpeg" alt=":(" width="#{picSize}" height="#{picSize}")
+  // img(src="public/images/instacat.jpeg" alt=":(" width="#{picSize}" height="#{picSize}")
 
 mixin status
   table#status
@@ -32,14 +32,14 @@ mixin picture-choices()
   table#picture-choices
     tbody
       tr
-        td#pic1
+        td#pic1.pic
           +small-picture()
-        td#pic2
+        td#pic2.pic
           +small-picture()
       tr
-        td#pic3
+        td#pic3.pic
           +small-picture()
-        td#pic4
+        td#pic4.pic
           +small-picture()
 
 mixin tags
@@ -98,7 +98,7 @@ mixin choose-tag
       tr
         td
           - var picSize = 430
-          img(src="public/images/instacat.jpeg" alt=":(" width="#{picSize}" height="#{picSize}")
+          img(src="public/images/instacat.jpeg" alt=":(" width="#{picSize}" height="#{picSize}")#chosen-pic
         td
           +tags()
   +status()
@@ -108,23 +108,61 @@ block content
   h1 
     span #tag
     span#help ?
-  div#choose-picture.noshow
+  div#choose-picture.show
     +choose-picture()
-  div#choose-tag.show
+  div#choose-tag.noshow
     +choose-tag()
   div#end.noshow
 
   script(type='text/javascript').
+    function getPhotosArray(string) {
+      return string.data;
+    }
+
+    function tagCompare(first, second){
+      if (first.tags.length < second.tags.length){
+        return 1;
+      }
+      else {
+        return -1;
+      }
+    }
+
+    function getMostTaggedPhotosArray(jason) {
+      return jason.data.sort(tagCompare);
+    }
+
+    function getNextIndex(used){
+      var nextNum = Math.floor(Math.random() * 20);
+      while(nextNum in used){
+        nextNum = Math.floor(Math.random() * 20);
+      }
+      used[nextNum] = true;
+      return nextNum;
+    }
+    
     function toString(string) {
       var picSize = 225;
       console.log(string);
-      var array = string.data;
-      var firstPic = array[0];
-      var images = firstPic.images;
-      var lowRes = images.low_resolution;
-      var url = lowRes.url;
+      var array = getPhotosArray(string);
+      var myURLs = new Array();
+      var myTags = new Array();
+      var used = new Object();
+      for (i = 0; i < 4; i++){
+        var nextIndex = getNextIndex(used);
+        var firstPic = array[nextIndex];
+        console.log(nextIndex);
+        var images = firstPic.images;
+        var lowRes = images.low_resolution;
+        var url = lowRes.url;
+        myURLs[i] = url;
+        myTags[i] = firstPic.tags;
+      }
       console.log(url);
-      $( '#pic1' ).html('<img src='+ url + ' alt=":(" width="'+ picSize + '" height="' + picSize + '"></img>');
+      $( '#pic1' ).html('<img src='+ myURLs[0] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" tags=' + myTags[0] + '"></img>');
+      $( '#pic2' ).html('<img src='+ myURLs[1] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" tags=' + myTags[1] + '"></img>');
+      $( '#pic3' ).html('<img src='+ myURLs[2] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" tags=' + myTags[2] + '"></img>');
+      $( '#pic4' ).html('<img src='+ myURLs[3] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" tags=' + myTags[3] + '"></img>');
       console.log('string');
     }
     function search(tagName) {
@@ -135,12 +173,3 @@ block content
 
    script(type='text/javascript').
     search('cats');
-
-   script(src='/public/javascripts/getTags.js')
-   script(type='text/javascript').
-    function getStartAndEndTags() {
-     var startAndEnd = getTags();
-     console.log(startAndEnd);
-     $( '#start' ).html(startAndEnd[0]);
-     $( '#end' ).html(startAndEnd[1]);
-    }
