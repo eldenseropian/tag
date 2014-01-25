@@ -47,7 +47,13 @@ function toString(string) {
   $( '#pic3' ).html('<img src='+ myURLs[2] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 2 + '"></img>');
   $( '#pic4' ).html('<img src='+ myURLs[3] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 3 + '"></img>');
   console.log('string');
+  
+  $( '#choose-picture' ).toggleClass('noshow');
+  $( '#choose-tag' ).toggleClass('noshow');
+
+
 }
+
 function search(tagName) {
   console.log('hiiii');
   url = 'https://api.instagram.com/v1/tags/' + tagName + '/media/recent?callback=?&client_id=68de522f648043ee922bcf14545cfa7a';

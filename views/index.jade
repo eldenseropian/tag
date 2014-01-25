@@ -2,7 +2,7 @@ extends layout
 
 mixin small-picture
   - var picSize = 225
-  // img(src="public/images/instacat.jpeg" alt=":(" width="#{picSize}" height="#{picSize}")
+  // img(src="public/images/tag.jpg" alt=":(" width="#{picSize}" height="#{picSize}")
 
 mixin status
   table#status
@@ -63,7 +63,7 @@ mixin choose-tag
       tr
         td
           - var picSize = 430
-          img(src="public/images/instacat.jpeg" alt=":(" width="#{picSize}" height="#{picSize}")#chosen-pic
+          img(src="public/images/tag.jpg" alt=":(" width="#{picSize}" height="#{picSize}")#chosen-pic
         td
           +tags(true)
 

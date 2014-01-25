@@ -46,16 +46,8 @@ mixin tags(showTags)
   td(valign="top")
     div.tag-title Tags:
     div.tags
-<<<<<<< HEAD
-      ul
-        li.tag cat
-        li.tag space
-        li.tag cement
-
-=======
       if showTags
         ul#tags-list
->>>>>>> 1cfcdc24821f0003f45469ff1c4acb384decd2d7
 
 mixin choose-picture
   table
@@ -74,6 +66,9 @@ mixin choose-tag
           img(src="public/images/instacat.jpeg" alt=":(" width="#{picSize}" height="#{picSize}")#chosen-pic
         td
           +tags(true)
+
+mixin end-game
+  div(position="absolute") HOOD JOB EVERYBOOODOY
   
 block content
   h1 
@@ -93,5 +88,6 @@ block content
   div#choose-tag.noshow
     +choose-tag()
   div#endgame.noshow
+    +end-game()
   +status()
   +us()

@@ -1,10 +1,13 @@
-
+this.hops = 0;
 
 $(document).ready(function() {
   $('.pic').each(choosePic);
   $('#help').hover(function() {
     $('#about').toggleClass('noshow');
   });
+
+  $( '#choose-picture' ).toggleClass('noshow');
+  $( '#choose-tag' ).toggleClass('noshow');
   
   getStartAndEndTags();
  });
@@ -28,15 +31,14 @@ function choosePic(index, pic) {
 
 function chooseNextTag(index, tag) {
   $(this).click(function() {
-    console.log($(this).text());
-    $( '#choose-picture' ).toggleClass('noshow');
-    $( '#choose-tag' ).toggleClass('noshow');
-    $( '#tags-list' ).html("ul");
+    $( '#tags-list' ).html("<ul>");
     $( '#previous' ).html( $( '#current' ).text());
     $( '#current' ).html($(this).text());
 
     checkIfFinished();
     search($(this).text());
+
+    hops++;
   });
 }
 
