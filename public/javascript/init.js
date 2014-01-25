@@ -1,3 +1,5 @@
+
+
 $(document).ready(function() {
   $('.pic').each(choosePic);
   $('#help').hover(function() {
