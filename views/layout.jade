@@ -7,6 +7,7 @@ html
     script(src='/public/javascript/getTags.js')
     script(type='text/javascript').
       $(document).ready(function() {
+        tags = [];
       
         $('.pic').each(function(index, pic) {
           $(this).click(function() {
@@ -21,9 +22,21 @@ html
           });
         });
         
+        $('.tag').each(function(index, tag) {
+          $(this).click(function() {
+            previousImg = $(this).children()[0].getAttribute('src');
+            previousTags = tags;
+          });
+        });
+        
+        $('#previous-link').click(function() {
+          $('#chosen-pic).attr('src', img);
+        });
+        
         $('#help').hover(function() {
           $('#about').toggleClass('noshow');
         });
+        
         function getStartAndEndTags() {
           var startAndEnd = getTags();
           console.log(startAndEnd);
