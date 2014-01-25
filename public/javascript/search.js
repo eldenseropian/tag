@@ -41,6 +41,7 @@ function toString(string) {
     myURLs[i] = url;
     myTags[i] = firstPic.tags;
   }
+  previousImgs = myURLs;
   console.log(url);
   $( '#pic1' ).html('<img src='+ myURLs[0] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 0 + '"></img>');
   $( '#pic2' ).html('<img src='+ myURLs[1] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 1 + '"></img>');
