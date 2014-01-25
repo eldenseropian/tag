@@ -68,8 +68,33 @@ mixin choose-tag
 block content
   h1 #tag
   
+
+
+
   div#choose-picture.show
     +choose-picture()
   div#choose-tag.noshow
     +choose-tag()
   div#end.noshow
+
+  script(type='text/javascript').
+    function toString(string) {
+      var picSize = 225;
+      console.log(string);
+      var array = string.data;
+      var firstPic = array[0];
+      var images = firstPic.images;
+      var lowRes = images.low_resolution;
+      var url = lowRes.url;
+      console.log(url);
+      $( '#pic1' ).html('<img src='+ url + ' alt=":(" width="'+ picSize + '" height="' + picSize + '"></img>');
+      console.log('string');
+    }
+    function search(tagName) {
+      console.log('hiiii');
+      url = 'https://api.instagram.com/v1/tags/' + tagName + '/media/recent?callback=?&client_id=68de522f648043ee922bcf14545cfa7a';
+      $.getJSON(url, toString);
+    }
+
+   script(type='text/javascript').
+    search('cats');
