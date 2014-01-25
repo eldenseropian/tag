@@ -4,10 +4,5 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='http://code.jquery.com/jquery.min.js')
-    script(type='text/javascript').
-     $(document).ready(function() {
-      getStartAndEndTags();
-     })
-
   body
     block content
