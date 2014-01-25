@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 3em;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 table {
@@ -9,11 +9,40 @@ table {
 .noshow {
   display: none;
 }
-#tags {
-  border: 1px solid #808080;
-  height: 490px;
+#help {
+  border: 2px dotted #ffa500;
+  border-radius: 1em;
+  font-size: 0.5em;
+  margin-left: 0.5em;
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+}
+#picture-choices td {
+  padding: 0.25em;
+}
+#status {
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
+  text-align: center;
+}
+#status td {
+  padding-left: 3.25em;
+  padding-right: 3.25em;
+}
+.tags {
+  border: 1px dotted #808080;
+  height: 29em;
+  margin: 1em;
+  margin-bottom: 0em;
+  overflow: scroll;
   width: 10em;
 }
-#tag-title {
-  text-align: center;
+.tags li:hover {
+  color: #ffa500;
+}
+.tags ul {
+  list-style-type: none;
+}
+.tags ul li {
+  margin-top: 1em;
 }
