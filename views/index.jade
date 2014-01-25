@@ -4,43 +4,38 @@ mixin small-picture
   - var picSize = 225
   // img(src="public/images/tag.jpg" alt=":(" width="#{picSize}" height="#{picSize}")
 
+mixin status-col(title, id)
+  td
+    div
+      h2= title
+    div(id="#{id}") -
+      
 mixin status
   table#status
     tbody
       tr
-        td
-          div 
-            h2 START
-          div#start Cat
-        td
-          div 
-            h2 PREVIOUS
-          div#previous -
-        td
-          div 
-            h2 CURRENT
-          div#current Cat
-        td
-          div 
-            h2 END
-          div#end Smith
+        +status-col('START', 'start')
+        +status-col('PREVIOUS', 'previous')
+        +status-col('CURRENT', 'current')
+        +status-col('END', 'end')
 
 mixin us
   div By Lily, Indy, Julia, and Danae at Hack@Brown
 
+mixin picture-td(id)
+  td(id = "#{id}").pic
+    +small-picture()
+
+mixin picture-row(id1, id2)
+  tr
+    +picture-td(id1)
+    +picture-td(id2)
+
 mixin picture-choices()
   table#picture-choices
     tbody
-      tr
-        td#pic1.pic
-          +small-picture()
-        td#pic2.pic
-          +small-picture()
-      tr
-        td#pic3.pic
-          +small-picture()
-        td#pic4.pic
-          +small-picture()
+      +picture-row('pic1', 'pic2')
+      +picture-row('pic3', 'pic4')
 
 mixin tags(showTags)
   td(valign="top")

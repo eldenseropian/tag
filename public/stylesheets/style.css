@@ -28,11 +28,11 @@ table {
   color: #ffa500;
 }
 #previous-link {
-  color: #fff;
+  color: #000;
   font-size: 2em;
   margin-left: 13em;
   position: absolute;
-  text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+  text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
 }
 #status {
   margin-top: 2.5em;
