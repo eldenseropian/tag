@@ -66,6 +66,9 @@ mixin choose-tag
           img(src="public/images/instacat.jpeg" alt=":(" width="#{picSize}" height="#{picSize}")#chosen-pic
         td
           +tags(true)
+
+mixin end-game
+  div(position="absolute") HOOD JOB EVERYBOOODOY
   
 block content
   h1 
@@ -85,5 +88,6 @@ block content
   div#choose-tag.noshow
     +choose-tag()
   div#endgame.noshow
+    +end-game()
   +status()
   +us()
