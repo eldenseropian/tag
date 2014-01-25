@@ -98,3 +98,12 @@ block content
 
    script(type='text/javascript').
     search('cats');
+
+   script(src='/public/javascripts/getTags.js')
+   script(type='text/javascript').
+    function getStartAndEndTags() {
+     var startAndEnd = getTags();
+     console.log(startAndEnd);
+     $( '#start' ).html(startAndEnd[0]);
+     $( '#end' ).html(startAndEnd[1]);
+    }
