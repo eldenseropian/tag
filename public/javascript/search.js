@@ -1,5 +1,5 @@
-function getPhotosArray(string) {
-  return string.data;
+function getPhotosArray(response) {
+  return response.data;
 }
 
 function tagCompare(first, second){
@@ -15,26 +15,92 @@ function getMostTaggedPhotosArray(jason) {
   return jason.data.sort(tagCompare);
 }
 
-function getNextIndex(used){
-  var nextNum = Math.floor(Math.random() * 20);
-  while(nextNum in used){
-    nextNum = Math.floor(Math.random() * 20);
+function getNextIndex(used, possibilities) {
+  var nextNum = Math.floor(Math.random() * possibilities.length);
+  while(possibilities[nextNum] in used){
+    console.log("Another index: " + possibilities[nextNum])
+    nextNum = Math.floor(Math.random() * possibilities.length);
   }
-  used[nextNum] = true;
-  return nextNum;
+  return possibilities[nextNum];
 }
 
-function toString(string) {
+function shuffle(array) {
+  var currentIndex = array.length;
+    
+  while(0 !== currentIndex) {
+    var randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex = currentIndex - 1;
+
+    var temp = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temp;
+  }
+
+  return array;
+}
+
+function getPhotoIndeces(mediaArray) {
+  console.log(mediaArray);
+  var MAX_TAGS = 7;
+  var possibleIndeces = new Array();
+  for (var i = 0; i < mediaArray.length; i++) {
+    possibleIndeces[i] = i;
+  }
+
+  var shuffledIndeces = shuffle(possibleIndeces);
+  console.log(shuffledIndeces);
+  var chosen = new Array();
+  var badIndices = new Array();
+  for (var i = 0; i < mediaArray.length; i++) {
+    if (chosen.length == 4){
+      return chosen;
+    }
+    nextIndex = shuffledIndeces[i];
+    if(mediaArray[nextIndex].tags.length > MAX_TAGS) {
+      badIndices.push(nextIndex);
+    }
+    else {
+      chosen.push(nextIndex);
+    }
+  }
+ return [1,2,3,4];
+  var i = 0;
+  while(chosen.length < 4) {
+    chosen.push(badIndeces[i]);
+    i = i + 1;
+    //if (chosen.length + badIndices.length >= mediaArray.length){ // All images have been looked at and there aren't enough chosen
+      //while(chosen.length < 4){
+//        //chosen.push(getNextIndex(chosen, badIndices));
+      //}
+//    }
+//    var nextIndex = Math.floor(Math.random() * mediaArray.length);
+//    while(nextIndex in chosen || nextIndex in badIndices){
+      //nextIndex = Math.floor(Math.random() * mediaArray.length);
+//    }
+//    console.log("Index: " + nextIndex);
+//    if(mediaArray[nextIndex].tags.length > MAX_TAGS) {
+      //badIndices.push(nextIndex);
+//    }
+//    else{
+      //chosen.push(nextIndex);
+//    }
+
+  }
+  return chosen;
+}
+
+function renderImages(response) {
   var picSize = 225;
-  console.log(string);
-  var array = getPhotosArray(string);
+  console.log(response);
+  var array = getPhotosArray(response);
   var myURLs = new Array();
   myTags = new Array();
-  var used = new Object();
+  var photoIndeces = getPhotoIndeces(array);
+  console.log(photoIndeces);
   for (i = 0; i < 4; i++){
-    var nextIndex = getNextIndex(used);
-    var firstPic = array[nextIndex];
-    console.log(nextIndex);
+    // var nextIndex = getNextIndex(used, badIndeces, array.length);
+    var firstPic = array[photoIndeces[i]];
+    console.log(photoIndeces[i]);
     var images = firstPic.images;
     var lowRes = images.low_resolution;
     var url = lowRes.url;
@@ -50,6 +116,7 @@ function toString(string) {
 }
 function search(tagName) {
   console.log('hiiii');
+  $('#tags-list').empty();
   url = 'https://api.instagram.com/v1/tags/' + tagName + '/media/recent?callback=?&client_id=68de522f648043ee922bcf14545cfa7a';
-  $.getJSON(url, toString);
+  $.getJSON(url, renderImages);
 }
