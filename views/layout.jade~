@@ -5,6 +5,7 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='http://code.jquery.com/jquery.min.js')
     script(src='/public/javascript/getTags.js')
+    script(src='index.jade').
     script(type='text/javascript').
       $(document).ready(function() {
         $('.pic').each(function(index, pic) {
@@ -27,6 +28,7 @@ html
           $( '#current' ).html(startAndEnd[0]);
         }
         getStartAndEndTags();
+        search(startAndEnd[0]);
        });
 
 
