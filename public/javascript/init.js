@@ -25,10 +25,8 @@ $(document).ready(function() {
 
 function populateTagList(index) {
   $('#tags-list').empty();
-  console.log('index', index);
   var myTagList = myTags[index];
   for (var i = 0; i < myTagList.length; i++){
-    console.log('adding ' + myTagList[i]);
     $('#tags-list').append('<li class = "tag">' + myTagList[i] + '</li>');
   }
 }
