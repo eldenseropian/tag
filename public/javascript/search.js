@@ -98,8 +98,8 @@ function renderImages(response) {
     // var nextIndex = getNextIndex(used, badIndeces, array.length);
     var firstPic = array[photoIndeces[i]];
     var images = firstPic.images;
-    var lowRes = images.low_resolution;
-    var url = lowRes.url;
+    var stdRes = images.standard_resolution;
+    var url = stdRes.url;
     myURLs[i] = url;
     myTags[i] = firstPic.tags;
   }
