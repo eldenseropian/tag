@@ -12,8 +12,11 @@ html
             $('#choose-picture').toggleClass('noshow');
             $('#choose-tag').toggleClass('noshow');
             console.log($(this).attr('src'));
-            var picture = $(this).children()[0].getAttribute('src');
+            var imgNode = $(this).children()[0];
+            var picture = imgNode.getAttribute('src');
             $('#chosen-pic').attr('src', picture);
+            var tagArray = imgNode.getAttribute('tags');
+            console.log(tagArray);
           });
         });
         function getStartAndEndTags() {

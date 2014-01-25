@@ -146,6 +146,7 @@ block content
       console.log(string);
       var array = getPhotosArray(string);
       var myURLs = new Array();
+      var myTags = new Array();
       var used = new Object();
       for (i = 0; i < 4; i++){
         var nextIndex = getNextIndex(used);
@@ -155,12 +156,13 @@ block content
         var lowRes = images.low_resolution;
         var url = lowRes.url;
         myURLs[i] = url;
+        myTags[i] = firstPic.tags;
       }
       console.log(url);
-      $( '#pic1' ).html('<img src='+ myURLs[0] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '"></img>');
-      $( '#pic2' ).html('<img src='+ myURLs[1] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '"></img>');
-      $( '#pic3' ).html('<img src='+ myURLs[2] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '"></img>');
-      $( '#pic4' ).html('<img src='+ myURLs[3] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '"></img>');
+      $( '#pic1' ).html('<img src='+ myURLs[0] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" tags=' + myTags[0] + '"></img>');
+      $( '#pic2' ).html('<img src='+ myURLs[1] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" tags=' + myTags[1] + '"></img>');
+      $( '#pic3' ).html('<img src='+ myURLs[2] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" tags=' + myTags[2] + '"></img>');
+      $( '#pic4' ).html('<img src='+ myURLs[3] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" tags=' + myTags[3] + '"></img>');
       console.log('string');
     }
     function search(tagName) {
