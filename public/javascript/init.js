@@ -27,14 +27,21 @@ function choosePic(index, pic) {
 function chooseNextTag(index, tag) {
   $(this).click(function() {
     console.log($(this).text());
-    search($(this).text());
     $( '#choose-picture' ).toggleClass('noshow');
     $( '#choose-tag' ).toggleClass('noshow');
     $( '#tags-list' ).html("ul");
     $( '#previous' ).html( $( '#current' ).text());
     $( '#current' ).html($(this).text());
-    $
+
+    checkIfFinished();
+    search($(this).text());
   });
+}
+
+function checkIfFinished() {
+  if($( '#current' ).text() === $( '#end' ).text() ) {
+    console.log("Good job!");
+  }
 }
 
 function getStartAndEndTags() {
