@@ -14,7 +14,7 @@ mixin status
           div#start Cat
         td
           div 
-            h2 PREVIOUS
+            h2#previous-link PREVIOUS
           div#previous -
         td
           div 
@@ -108,6 +108,15 @@ block content
   h1 
     span #tag
     span#help ?
+  span#about.noshow
+    div Find your way from #start to #end by:
+    div 1.) selecting one of the four images
+    div 2.) clicking on one of its hashtags and
+    div 3.) repeating with the next set of images.
+    br
+    div Thanks to the Hack@Brown coordinators for a great experience.
+    br
+    div Happy tagging!
   div#choose-picture.show
     +choose-picture()
   div#choose-tag.noshow
