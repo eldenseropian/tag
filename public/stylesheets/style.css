@@ -9,6 +9,14 @@ table {
 .noshow {
   display: none;
 }
+#help {
+  border: 2px dotted #ffa500;
+  border-radius: 1em;
+  font-size: 0.5em;
+  margin-left: 0.5em;
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+}
 #picture-choices td {
   padding: 0.25em;
 }
@@ -23,11 +31,14 @@ table {
 }
 .tags {
   border: 1px dotted #808080;
-  height: 31em;
+  height: 29em;
   margin: 1em;
   margin-bottom: 0em;
   overflow: scroll;
   width: 10em;
+}
+.tags li:hover {
+  color: #ffa500;
 }
 .tags ul {
   list-style-type: none;

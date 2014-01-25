@@ -97,7 +97,7 @@ mixin choose-tag
     tbody
       tr
         td
-          - var picSize = 465
+          - var picSize = 430
           img(src="public/images/instacat.jpeg" alt=":(" width="#{picSize}" height="#{picSize}")
         td
           +tags()
@@ -105,9 +105,11 @@ mixin choose-tag
   +us()
   
 block content
-  h1 #tag
-  div#choose-picture.show
+  h1 
+    span #tag
+    span#help ?
+  div#choose-picture.noshow
     +choose-picture()
-  div#choose-tag.noshow
+  div#choose-tag.show
     +choose-tag()
   div#end.noshow
