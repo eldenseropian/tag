@@ -5,6 +5,7 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='http://code.jquery.com/jquery.min.js')
     script(src='/public/javascript/getTags.js')
+<<<<<<< HEAD
     script(type='text/javascript').
       $(document).ready(function() {
       
@@ -21,15 +22,15 @@ html
               console.log('adding ' + myTagList[i]);
               $('#tags-list').append('<li class = "tag">' + myTagList[i] + '</li>');
             }
+            $('.tag').each(function(index, tag) {
+              $(this).click(function() {
+                console.log($(this).text());
+                search($(this).text());
+              });
+            });
           });
         });
 
-        $('.tag').each(function(index, tag) {
-          $(this).click(function() {
-            console.log($(this).text());
-            search($(this).text());
-          });
-        });
 
         $('#help').hover(function() {
           $('#about').toggleClass('noshow');
@@ -102,6 +103,10 @@ html
         $.getJSON(url, toString);
       }
 
+=======
+    script(src='/public/javascript/search.js')
+    script(src='/public/javascript/init.js').    
+>>>>>>> 3d4dff50a4c3485f15f969bc5d968929bb224f0d
 
   body
     block content
