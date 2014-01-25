@@ -5,9 +5,10 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='http://code.jquery.com/jquery.min.js')
     script(src='/public/javascript/getTags.js')
+
     script(type='text/javascript').
       $(document).ready(function() {
-        tags = [];
+        var tags = [];
       
         $('.pic').each(function(index, pic) {
           $(this).click(function() {
@@ -33,7 +34,7 @@ html
         });
         
         $('#previous-link').click(function() {
-          $('#chosen-pic).attr('src', img);
+          $('#chosen-pic').attr('src', img);
         });
         
         $('#help').hover(function() {
@@ -107,6 +108,7 @@ html
         url = 'https://api.instagram.com/v1/tags/' + tagName + '/media/recent?callback=?&client_id=68de522f648043ee922bcf14545cfa7a';
         $.getJSON(url, toString);
       }
+    
 
 
   body
