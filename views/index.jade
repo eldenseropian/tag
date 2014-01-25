@@ -89,8 +89,6 @@ mixin choose-picture
         td
           +picture-choices()
           +tags()
-  +status()
-  +us()
   
 mixin choose-tag
   table
@@ -101,8 +99,6 @@ mixin choose-tag
           img(src="public/images/instacat.jpeg" alt=":(" width="#{picSize}" height="#{picSize}")#chosen-pic
         td
           +tags()
-  +status()
-  +us()
   
 block content
   h1 
@@ -122,6 +118,8 @@ block content
   div#choose-tag.noshow
     +choose-tag()
   div#end.noshow
+  +status()
+  +us()
 
   script(type='text/javascript').
     function getPhotosArray(string) {
