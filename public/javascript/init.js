@@ -63,6 +63,8 @@ function chooseNextTag(index, tag) {
 function checkIfFinished() {
   if($( '#current' ).text() === $( '#end' ).text() ) {
     console.log("Good job!");
+    $( '#endgame' ).toggleClass('noshow');
+    $( '#hops' ).append(hops);
   }
 }
 
