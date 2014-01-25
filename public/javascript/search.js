@@ -107,13 +107,20 @@ function renderImages(response) {
     myURLs[i] = url;
     myTags[i] = firstPic.tags;
   }
+  previousImgs = myURLs;
   console.log(url);
   $( '#pic1' ).html('<img src='+ myURLs[0] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 0 + '"></img>');
   $( '#pic2' ).html('<img src='+ myURLs[1] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 1 + '"></img>');
   $( '#pic3' ).html('<img src='+ myURLs[2] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 2 + '"></img>');
   $( '#pic4' ).html('<img src='+ myURLs[3] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 3 + '"></img>');
   console.log('string');
+  
+  $( '#choose-picture' ).toggleClass('noshow');
+  $( '#choose-tag' ).toggleClass('noshow');
+
+
 }
+
 function search(tagName) {
   console.log('hiiii');
   $('#tags-list').empty();

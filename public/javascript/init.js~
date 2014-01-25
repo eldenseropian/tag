@@ -7,10 +7,6 @@ $(document).ready(function() {
     $('#choose-picture').toggleClass('noshow');
     $('#choose-tag').toggleClass('noshow');
     $('#tags-list').empty();
-
-    hops++;
-    console.log("Hopping:");
-    console.log(hops);
   });
   
   $('#help').hover(function() {
@@ -54,9 +50,9 @@ function chooseNextTag(index, tag) {
     checkIfFinished();
     search($(this).text());
 
-    hops++;
+    this.hops++;
     console.log("Hopping:");
-    console.log(hops);
+    console.log(this.hops);
   });
 }
 

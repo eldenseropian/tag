@@ -27,6 +27,13 @@ table {
 #previous-link:hover {
   color: #ffa500;
 }
+#previous-link {
+  color: #fff;
+  font-size: 2em;
+  margin-left: 13em;
+  position: absolute;
+  text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+}
 #status {
   margin-top: 2.5em;
   margin-bottom: 2.5em;
