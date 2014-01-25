@@ -4,6 +4,7 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='http://code.jquery.com/jquery.min.js')
+    script(src='/public/javascript/getTags.js')
     script(type='text/javascript').
       $(document).ready(function() {
         $('.pic').each(function(index, pic) {
@@ -15,6 +16,15 @@ html
             $('#chosen-pic').attr('src', picture);
           });
         });
-      });
+        function getStartAndEndTags() {
+          var startAndEnd = getTags();
+          console.log(startAndEnd);
+          $( '#start' ).html(startAndEnd[0]);
+          $( '#end' ).html(startAndEnd[1]);
+        }
+        getStartAndEndTags();
+       });
+
+
   body
     block content

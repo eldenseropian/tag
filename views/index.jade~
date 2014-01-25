@@ -1,0 +1,146 @@
+extends layout
+
+mixin small-picture
+  - var picSize = 225
+  img(src="public/images/instacat.jpeg" alt=":(" width="#{picSize}" height="#{picSize}")
+
+mixin status
+  table#status
+    tbody
+      tr
+        td
+          div 
+            h2 START
+          div#start Cat
+        td
+          div 
+            h2 PREVIOUS
+          div#previous -
+        td
+          div 
+            h2 CURRENT
+          div#current Cat
+        td
+          div 
+            h2 END
+          div#end Smith
+
+mixin us
+  div By Lily, Indy, Julia, and Danae at Hack@Brown
+
+mixin picture-choices()
+  table#picture-choices
+    tbody
+      tr
+        td#pic1
+          +small-picture()
+        td#pic2
+          +small-picture()
+      tr
+        td#pic3
+          +small-picture()
+        td#pic4
+          +small-picture()
+
+mixin tags
+  td(valign="top")
+    div.tag-title Tags:
+    div.tags
+      ul
+        li never
+        li gonna
+        li give
+        li you
+        li up
+        li never
+        li gonna
+        li let
+        li you
+        li down
+        li never
+        li gonna
+        li run
+        li around
+        li and
+        li hurt
+        li you
+        li never
+        li gonna
+        li make
+        li you
+        li cry
+        li never
+        li gonna
+        li say
+        li goodbye
+        li never
+        li gonna
+        li run
+        li and
+        li hide
+        li and
+        li desert
+        li you
+
+mixin choose-picture
+  table
+    tbody
+      tr
+        td
+          +picture-choices()
+          +tags()
+  +status()
+  +us()
+  
+mixin choose-tag
+  table
+    tbody
+      tr
+        td
+          - var picSize = 430
+          img(src="public/images/instacat.jpeg" alt=":(" width="#{picSize}" height="#{picSize}")
+        td
+          +tags()
+  +status()
+  +us()
+  
+block content
+  h1 
+    span #tag
+    span#help ?
+  div#choose-picture.noshow
+    +choose-picture()
+  div#choose-tag.show
+    +choose-tag()
+  div#end.noshow
+
+  script(type='text/javascript').
+    function toString(string) {
+      var picSize = 225;
+      console.log(string);
+      var array = string.data;
+      var firstPic = array[0];
+      var images = firstPic.images;
+      var lowRes = images.low_resolution;
+      var url = lowRes.url;
+      console.log(url);
+      $( '#pic1' ).html('<img src='+ url + ' alt=":(" width="'+ picSize + '" height="' + picSize + '"></img>');
+      console.log('string');
+    }
+    function search(tagName) {
+      console.log('hiiii');
+      url = 'https://api.instagram.com/v1/tags/' + tagName + '/media/recent?callback=?&client_id=68de522f648043ee922bcf14545cfa7a';
+      $.getJSON(url, toString);
+    }
+
+   script(type='text/javascript').
+    search('cats');
+
+   script(src='/public/javascripts/getTags.js')
+   script(type='text/javascript').
+    function getStartAndEndTags() {
+     var startAndEnd = getTags();
+     console.log(startAndEnd);
+     $( '#start' ).html(startAndEnd[0]);
+     $( '#end' ).html(startAndEnd[1]);
+    }
