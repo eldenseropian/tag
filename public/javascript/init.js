@@ -20,6 +20,10 @@ $(document).ready(function() {
   $( '#choose-picture' ).toggleClass('noshow');
   $( '#choose-tag' ).toggleClass('noshow');
   
+  $( '#refresh' ).click(function() {
+    location.reload(true);
+  });
+
   getStartAndEndTags();
  });
 
@@ -61,6 +65,8 @@ function chooseNextTag(index, tag) {
 function checkIfFinished() {
   if($( '#current' ).text() === $( '#end' ).text() ) {
     console.log("Good job!");
+    $( '#endgame' ).toggleClass('noshow');
+    $( '#hops' ).append(hops);
   }
 }
 
