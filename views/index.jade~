@@ -14,7 +14,7 @@ mixin status
           div#start Cat
         td
           div 
-            h2 PREVIOUS
+            h2#previous-link PREVIOUS
           div#previous -
         td
           div 
@@ -89,8 +89,6 @@ mixin choose-picture
         td
           +picture-choices()
           +tags()
-  +status()
-  +us()
   
 mixin choose-tag
   table
@@ -101,18 +99,27 @@ mixin choose-tag
           img(src="public/images/instacat.jpeg" alt=":(" width="#{picSize}" height="#{picSize}")#chosen-pic
         td
           +tags()
-  +status()
-  +us()
   
 block content
   h1 
     span #tag
     span#help ?
+  span#about.noshow
+    div Find your way from #start to #end by:
+    div 1.) selecting one of the four images
+    div 2.) clicking on one of its hashtags and
+    div 3.) repeating with the next set of images.
+    br
+    div Thanks to the Hack@Brown coordinators for a great experience.
+    br
+    div Happy tagging!
   div#choose-picture.show
     +choose-picture()
   div#choose-tag.noshow
     +choose-tag()
-  div#end.noshow
+  div#endgame.noshow
+  +status()
+  +us()
 
   script(type='text/javascript').
     function getPhotosArray(string) {
@@ -170,6 +177,3 @@ block content
       url = 'https://api.instagram.com/v1/tags/' + tagName + '/media/recent?callback=?&client_id=68de522f648043ee922bcf14545cfa7a';
       $.getJSON(url, toString);
     }
-
-   script(type='text/javascript').
-    search('cats');
