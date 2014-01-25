@@ -1,31 +1,35 @@
 extends layout
 
 mixin small-picture
-  - var picSize = 250
+  - var picSize = 225
   img(src="public/images/instacat.jpeg" alt=":(" width="#{picSize}" height="#{picSize}")
 
 mixin status
-  table
+  table#status
     tbody
       tr
         td
-          div START
+          div 
+            h2 START
           div#start Cat
         td
-          div PREVIOUS
+          div 
+            h2 PREVIOUS
           div#previous -
         td
-          div CURRENT
+          div 
+            h2 CURRENT
           div#current Cat
         td
-          div END
+          div 
+            h2 END
           div#end Smith
 
 mixin us
-  div By Lily, Indy, Julia, and Danae
+  div By Lily, Indy, Julia, and Danae at Hack@Brown
 
 mixin picture-choices()
-  table
+  table#picture-choices
     tbody
       tr
         td#pic1
@@ -37,12 +41,47 @@ mixin picture-choices()
           +small-picture()
         td#pic4
           +small-picture()
-   
+
 mixin tags
   td(valign="top")
-    div#tag-title Tags
-    div#tags  
-     
+    div.tag-title Tags:
+    div.tags
+      ul
+        li never
+        li gonna
+        li give
+        li you
+        li up
+        li never
+        li gonna
+        li let
+        li you
+        li down
+        li never
+        li gonna
+        li run
+        li around
+        li and
+        li hurt
+        li you
+        li never
+        li gonna
+        li make
+        li you
+        li cry
+        li never
+        li gonna
+        li say
+        li goodbye
+        li never
+        li gonna
+        li run
+        li and
+        li hide
+        li and
+        li desert
+        li you
+
 mixin choose-picture
   table
     tbody
@@ -58,7 +97,7 @@ mixin choose-tag
     tbody
       tr
         td
-          - var picSize = 500
+          - var picSize = 465
           img(src="public/images/instacat.jpeg" alt=":(" width="#{picSize}" height="#{picSize}")
         td
           +tags()
@@ -67,7 +106,6 @@ mixin choose-tag
   
 block content
   h1 #tag
-  
   div#choose-picture.show
     +choose-picture()
   div#choose-tag.noshow
