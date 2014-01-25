@@ -20,6 +20,10 @@ $(document).ready(function() {
   $( '#choose-picture' ).toggleClass('noshow');
   $( '#choose-tag' ).toggleClass('noshow');
   
+  $( '#refresh' ).click(function() {
+    location.reload(true);
+  });
+
   getStartAndEndTags();
  });
 
