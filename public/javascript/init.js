@@ -2,6 +2,17 @@ this.hops = 0;
 
 $(document).ready(function() {
   $('.pic').each(choosePic);
+  
+  $('#previous-link').click(function() {
+    $('#choose-picture').toggleClass('noshow');
+    $('#choose-tag').toggleClass('noshow');
+    populateTagList($('#chosen-pic').attr('index'));
+
+    this.hops++;
+    console.log("Hopping:");
+    console.log(this.hops);
+  });
+  
   $('#help').hover(function() {
     $('#about').toggleClass('noshow');
   });
@@ -11,21 +22,26 @@ $(document).ready(function() {
   
   getStartAndEndTags();
  });
- 
+
+function populateTagList(index) {
+  $('#tags-list').empty();
+  console.log('index', index);
+  var myTagList = myTags[index];
+  for (var i = 0; i < myTagList.length; i++){
+    console.log('adding ' + myTagList[i]);
+    $('#tags-list').append('<li class = "tag">' + myTagList[i] + '</li>');
+  }
+}
+
 function choosePic(index, pic) {
   $(this).click(function() {
-    $('#choose-picture').toggleClass('noshow');
-    $('#choose-tag').toggleClass('noshow');
-    console.log($(this).attr('src'));
     var imgNode = $(this).children()[0];
     var picture = imgNode.getAttribute('src');
     $('#chosen-pic').attr('src', picture);
-    var myTagList = myTags[imgNode.getAttribute('index')];
-    for (var i = 0; i < myTagList.length; i++){
-      console.log('adding ' + myTagList[i]);
-      $('#tags-list').append('<li class = "tag">' + myTagList[i] + '</li>');
-    }
+    populateTagList(imgNode.getAttribute('index'));
     $('.tag').each(chooseNextTag);
+    $('#choose-picture').toggleClass('noshow');
+    $('#choose-tag').toggleClass('noshow');
   });
 }
 
@@ -38,7 +54,9 @@ function chooseNextTag(index, tag) {
     checkIfFinished();
     search($(this).text());
 
-    hops++;
+    this.hops++;
+    console.log("Hopping:");
+    console.log(this.hops);
   });
 }
 
