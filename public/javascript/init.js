@@ -1,6 +1,5 @@
 $(document).ready(function() {
   $('.pic').each(choosePic);
-  
   $('#help').hover(function() {
     $('#about').toggleClass('noshow');
   });
@@ -21,6 +20,20 @@ function choosePic(index, pic) {
       console.log('adding ' + myTagList[i]);
       $('#tags-list').append('<li class = "tag">' + myTagList[i] + '</li>');
     }
+    $('.tag').each(chooseNextTag);
+  });
+}
+
+function chooseNextTag(index, tag) {
+  $(this).click(function() {
+    console.log($(this).text());
+    search($(this).text());
+    $( '#choose-picture' ).toggleClass('noshow');
+    $( '#choose-tag' ).toggleClass('noshow');
+    $( '#tags-list' ).html("ul");
+    $( '#previous' ).html( $( '#current' ).text());
+    $( '#current' ).html($(this).text());
+    $
   });
 }
 
