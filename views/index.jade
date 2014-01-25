@@ -1,7 +1,7 @@
 extends layout
 
 mixin small-picture
-  - var picSize = 225
+  - var picSize = 224
   // img(src="public/images/tag.jpg" alt=":(" width="#{picSize}" height="#{picSize}")
 
 mixin status-col(title, id)
@@ -58,7 +58,7 @@ mixin choose-tag
     tbody
       tr
         td
-          - var picSize = 430
+          - var picSize = 470
           img(src="public/images/tag.jpg" alt=":(" width="#{picSize}" height="#{picSize}")#chosen-pic
         td
           +tags(true)
