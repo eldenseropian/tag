@@ -1,13 +1,10 @@
 $(document).ready(function() {
-  var imgNode;
-  
   $('.pic').each(choosePic);
   
   $('#previous-link').click(function() {
     $('#choose-picture').toggleClass('noshow');
     $('#choose-tag').toggleClass('noshow');
-    console.log(myTags);
-    populateTaglist(imgNode.getAttribute('index'));
+    populateTaglist($('#chosen-pic').attr('index'));
   });
   
   $('#help').hover(function() {
@@ -19,7 +16,8 @@ $(document).ready(function() {
 
 function populateTagList(index) {
   $('#tags-list').empty();
-  var myTagList = myTags[imgNode.getAttribute('index')];
+  console.log('index', index);
+  var myTagList = myTags[index];
   for (var i = 0; i < myTagList.length; i++){
     console.log('adding ' + myTagList[i]);
     $('#tags-list').append('<li class = "tag">' + myTagList[i] + '</li>');
@@ -28,14 +26,34 @@ function populateTagList(index) {
 
 function choosePic(index, pic) {
   $(this).click(function() {
-    $('#choose-picture').toggleClass('noshow');
-    $('#choose-tag').toggleClass('noshow');
-    console.log($(this).attr('src'));
-    imgNode = $(this).children()[0];
+    var imgNode = $(this).children()[0];
     var picture = imgNode.getAttribute('src');
     $('#chosen-pic').attr('src', picture);
-    populateTagList();
+    populateTagList(imgNode.getAttribute('index'));
+    $('.tag').each(chooseNextTag);
+    $('#choose-picture').toggleClass('noshow');
+    $('#choose-tag').toggleClass('noshow');
   });
+}
+
+function chooseNextTag(index, tag) {
+  $(this).click(function() {
+    console.log($(this).text());
+    $( '#choose-picture' ).toggleClass('noshow');
+    $( '#choose-tag' ).toggleClass('noshow');
+    $( '#tags-list' ).html("ul");
+    $( '#previous' ).html( $( '#current' ).text());
+    $( '#current' ).html($(this).text());
+
+    checkIfFinished();
+    search($(this).text());
+  });
+}
+
+function checkIfFinished() {
+  if($( '#current' ).text() === $( '#end' ).text() ) {
+    console.log("Good job!");
+  }
 }
 
 function getStartAndEndTags() {
