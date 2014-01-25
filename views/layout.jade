@@ -4,5 +4,17 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='http://code.jquery.com/jquery.min.js')
+    script(type='text/javascript').
+      $(document).ready(function() {
+        $('.pic').each(function(index, pic) {
+          $(this).click(function() {
+            $('#choose-picture').toggleClass('noshow');
+            $('#choose-tag').toggleClass('noshow');
+            console.log($(this).attr('src'));
+            var picture = $(this).children()[0].getAttribute('src');
+            $('#chosen-pic').attr('src', picture);
+          });
+        });
+      });
   body
     block content
