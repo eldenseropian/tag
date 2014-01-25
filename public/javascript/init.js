@@ -4,7 +4,7 @@ $(document).ready(function() {
   $('#previous-link').click(function() {
     $('#choose-picture').toggleClass('noshow');
     $('#choose-tag').toggleClass('noshow');
-    populateTaglist($('#chosen-pic').attr('index'));
+    $('#tags-list').empty();
   });
   
   $('#help').hover(function() {
