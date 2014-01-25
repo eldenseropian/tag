@@ -68,6 +68,10 @@ table {
 #refresh:hover {
   color: #ffa500;
 }
+#title {
+  font-size: 2.5em;
+  margin-left: 0.5em;
+}
 .tags {
   border: 1px dotted #808080;
   height: 29em;
