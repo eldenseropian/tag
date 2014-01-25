@@ -40,6 +40,18 @@ function shuffle(array) {
 
 function getPhotoIndeces(mediaArray) {
   console.log(mediaArray);
+  var chosen = new Array();
+  if (mediaArray.length < 4) {
+    for (var i = 0; i < 4; i++){
+      if (i < mediaArray.length){
+        chosen.push(i);
+      }
+      else{
+        chosen.push(mediaArray.length - 1);
+      }
+    }
+    return chosen;
+  }
   var MAX_TAGS = 7;
   var MIN_TAGS = 3;
   var possibleIndeces = new Array();
@@ -48,7 +60,6 @@ function getPhotoIndeces(mediaArray) {
   }
 
   var shuffledIndeces = shuffle(possibleIndeces);
-  var chosen = new Array();
   var highIndices = new Array();
   var lowIndices = new Array();
   var noIndices = new Array();
