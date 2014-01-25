@@ -90,7 +90,6 @@ function getPhotoIndeces(mediaArray) {
 
 function renderImages(response) {
   var picSize = 225;
-  console.log(response);
   var array = getPhotosArray(response);
   var myURLs = new Array();
   myTags = new Array();
@@ -105,15 +104,10 @@ function renderImages(response) {
     myTags[i] = firstPic.tags;
   }
   previousImgs = myURLs;
-  console.log(url);
   $( '#pic1' ).html('<img src='+ myURLs[0] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 0 + '"></img>');
-  console.log('Tags of 0th image: ' + myTags[0]);
   $( '#pic2' ).html('<img src='+ myURLs[1] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 1 + '"></img>');
-  console.log('Tags of 1st image: ' + myTags[1]);
   $( '#pic3' ).html('<img src='+ myURLs[2] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 2 + '"></img>');
-  console.log('Tags of 2nd image: ' + myTags[2]);
   $( '#pic4' ).html('<img src='+ myURLs[3] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 3 + '"></img>');
-  console.log('Tags of 3rd image: ' + myTags[3]);
     
   $( '#choose-picture' ).toggleClass('noshow');
   $( '#choose-tag' ).toggleClass('noshow');
@@ -122,7 +116,6 @@ function renderImages(response) {
 }
 
 function search(tagName) {
-  console.log('hiiii');
   $('#tags-list').empty();
   url = 'https://api.instagram.com/v1/tags/' + tagName + '/media/recent?callback=?&client_id=68de522f648043ee922bcf14545cfa7a';
   $.getJSON(url, renderImages);
