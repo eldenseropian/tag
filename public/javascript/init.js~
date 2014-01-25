@@ -1,15 +1,12 @@
-<<<<<<< HEAD
 this.hops = 0;
 
-=======
->>>>>>> f26e95559dda5004e34d9c0afcb45ea295651acf
 $(document).ready(function() {
   $('.pic').each(choosePic);
   
   $('#previous-link').click(function() {
     $('#choose-picture').toggleClass('noshow');
     $('#choose-tag').toggleClass('noshow');
-    populateTaglist($('#chosen-pic').attr('index'));
+    $('#tags-list').empty();
   });
   
   $('#help').hover(function() {
@@ -53,7 +50,9 @@ function chooseNextTag(index, tag) {
     checkIfFinished();
     search($(this).text());
 
-    hops++;
+    this.hops++;
+    console.log("Hopping:");
+    console.log(this.hops);
   });
 }
 

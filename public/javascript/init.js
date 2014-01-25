@@ -6,11 +6,11 @@ $(document).ready(function() {
   $('#previous-link').click(function() {
     $('#choose-picture').toggleClass('noshow');
     $('#choose-tag').toggleClass('noshow');
-    populateTagList($('#chosen-pic').attr('index'));
+    $('#tags-list').empty();
 
-    this.hops++;
+    hops++;
     console.log("Hopping:");
-    console.log(this.hops);
+    console.log(hops);
   });
   
   $('#help').hover(function() {
@@ -54,9 +54,9 @@ function chooseNextTag(index, tag) {
     checkIfFinished();
     search($(this).text());
 
-    this.hops++;
+    hops++;
     console.log("Hopping:");
-    console.log(this.hops);
+    console.log(hops);
   });
 }
 
