@@ -130,18 +130,27 @@ block content
 
     function getMostTaggedPhotosArray(jason) {
       return jason.data.sort(tagCompare);
-
     }
 
+    function getNextIndex(used){
+      var nextNum = Math.floor(Math.random() * 20);
+      while(nextNum in used){
+        nextNum = Math.floor(Math.random() * 20);
+      }
+      used[nextNum] = true;
+      return nextNum;
+    }
     
     function toString(string) {
       var picSize = 225;
       console.log(string);
       var array = getPhotosArray(string);
       var myURLs = new Array();
+      var used = new Object();
       for (i = 0; i < 4; i++){
-        var firstPic = array[i];
-        console.log(firstPic.tags.length);
+        var nextIndex = getNextIndex(used);
+        var firstPic = array[nextIndex];
+        console.log(nextIndex);
         var images = firstPic.images;
         var lowRes = images.low_resolution;
         var url = lowRes.url;
