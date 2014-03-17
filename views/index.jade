@@ -1,86 +1,22 @@
 extends layout
 
-mixin small-picture
-  - var picSize = 224
-  // img(src="public/images/tag.jpg" alt=":(" width="#{picSize}" height="#{picSize}")
-
-mixin status-col(title, id)
-  td
-    div
-      h2= title
-    div(id="#{id}") -
-      
-mixin status
-  table#status
-    tbody
-      tr
-        +status-col('START', 'start')
-        +status-col('PREVIOUS', 'previous')
-        +status-col('CURRENT', 'current')
-        +status-col('END', 'end')
-
-mixin us
-  div By Lily, Indy, Julia, and Danaë at Hack@Brown
-
-mixin picture-td(id)
-  td(id = "#{id}").pic
-    +small-picture()
-
-mixin picture-row(id1, id2)
-  tr
-    +picture-td(id1)
-    +picture-td(id2)
-
-mixin picture-choices()
-  table#picture-choices
-    tbody
-      +picture-row('pic1', 'pic2')
-      +picture-row('pic3', 'pic4')
-
-mixin tags(showTags)
-  td(valign="top")
-    div.tag-title Tags:
-    div.tags
-      if showTags
-        ul#tags-list
-
-mixin choose-picture
-  table
-    tbody
-      tr
-        td
-          +picture-choices()
-          +tags(false)
-  
-mixin choose-tag
-  span#previous-link &larr;
-  table
-    tbody
-      tr
-        td
-          - var picSize = 470
-          img(src="public/images/tag.jpg" alt=":(" width="#{picSize}" height="#{picSize}")#chosen-pic
-        td
-          +tags(true)
-
-mixin end-game
-  div#overlay
-  div#popup 
-    br
-    h1 Good Game! 
-    br
-    h2
-      span Hops: 
-      span#hops
-    br
-    h2#refresh #tag again?
-    br
-    br
-  
 block content
+  +page-header()
+  +instructions()
+  +choose-picture()
+  +choose-tag()
+  +end-game()
+  +game-status()
+  +credits()
+
+// #tag logo and mouse-over question mark to get instructions
+mixin page-header()
   h1 
     span#title #tag
     span#help ?
+
+// instructions that are made visible when help is requested
+mixin instructions()
   span#about.noshow
     div Find your way from #start to #end by:
     div 1.) selecting one of the four images
@@ -90,11 +26,83 @@ block content
     div Thanks to the Hack@Brown coordinators for a great experience.
     br
     div Happy tagging!
+
+// 2x2 grid of pictures. Selecting a picture hides this and shows the
+// choose-tag section.
+mixin choose-picture()
   div#choose-picture
-    +choose-picture()
+    table
+      tbody
+        tr
+          td
+              table#picture-choices
+                tbody
+                  tr
+                    td(id = "#{'pic1'}").pic
+                    td(id = "#{'pic2'}").pic
+                  tr
+                    td(id = "#{'pic3'}").pic
+                    td(id = "#{'pic4'}").pic
+            +tags(false)
+
+// One large picture, with its tags in a sidebar. Selecting a tag hides this
+// and shows the choose-picture section.
+mixin choose-tag()
   div#choose-tag.noshow
-    +choose-tag()
+    span#previous-link &larr;
+    table
+      tbody
+        tr
+          td
+            - var picSize = 470
+            img(src="public/images/tag.jpg" alt=":(" width="#{picSize}"
+                height="#{picSize}")#chosen-pic
+          td
+            +tags(true)
+
+// When the user wins, displays a score popup and option to play again
+mixin end-game()
   div#endgame.noshow
-    +end-game()
-  +status()
-  +us()
+    div#overlay
+    div#popup 
+      br
+      h1 Good Game! 
+      br
+      h2
+        span Hops: 
+        span#hops
+      br
+      h2#refresh #tag again?
+      br
+      br
+
+// Shows tags relevant to gameplay in a table under the image display
+mixin game-status()
+  table#status
+    tbody
+      tr
+        td
+          h2 START
+          div(id="start") -
+        td
+          h2 PREVIOUS
+          div(id="previous") -
+        td
+          h2 CURRENT
+          div(id="current") -
+        td
+          h2 END
+          div(id="end") -
+
+// Creators listed at bottom of the page
+mixin credits()
+  div By Lily, Indy, Julia, and Danaë at Hack@Brown
+
+// Where image tags are shown. The tag list is hidden if choose-picture is
+// visible
+mixin tags(showTags)
+  td(valign="top")
+    div.tag-title Tags:
+    div.tags
+      if showTags
+        ul#tags-list
