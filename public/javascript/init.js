@@ -108,5 +108,6 @@ function getStartAndEndTags() {
   $('#start').text(startAndEnd[0]);
   $('#end').text(startAndEnd[1]);
   $('#current').text(startAndEnd[0]);
+  $('#tags-list').empty();
   search(startAndEnd[0]);
 }

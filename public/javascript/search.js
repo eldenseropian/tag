@@ -1,129 +1,136 @@
-function tagCompare(first, second){
-  if (first.tags.length < second.tags.length){
-    return 1;
-  }
-  else {
-    return -1;
-  }
+// Defines the "golden tag zone", or the ideal number of tags on an image:
+// there are enough tags to continue playing, but not so many to suggest that
+// the image has been tag-spammed.
+var MAX_TAGS = 7;
+var MIN_TAGS = 3;
+  
+/**
+ * Find photos with a given tag by querying the Instragram API.
+ * @param {String} tagName the name of the tag to find photos for.
+ */
+function search(tagName) {
+  url = 'https://api.instagram.com/v1/tags/' + tagName + 
+        '/media/recent?callback=?&client_id=68de522f648043ee922bcf14545cfa7a';
+  $.getJSON(url, renderImages);
 }
 
-function getMostTaggedPhotosArray(jason) {
-  return jason.data.sort(tagCompare);
-}
-
-function getNextIndex(used, possibilities) {
-  var nextNum = Math.floor(Math.random() * possibilities.length);
-  while(possibilities[nextNum] in used){
-    nextNum = Math.floor(Math.random() * possibilities.length);
+/**
+ * Display the 4 images to pick from. Hide the one-image view.
+ */
+function renderImages(response) {
+  var picSize = 225;  // pixels
+  var photos = response.data;
+  var myURLs = new Array();
+  // myTags is a global variable; this has the effect of clearing it.
+  myTags = new Array();
+  var photoIndices = getPhotoIndices(photos);
+  for (i = 0; i < 4; i++){
+    var pic = photos[photoIndices[i]];
+    myURLs[i] = pic.images.standard_resolution.url;
+    myTags[i] = pic.tags;
+    $('#pic' + (i+1)).html(createImageHTML(pic.images.standard_resolution.url,
+        picSize, i));
   }
-  return possibilities[nextNum];
+  
+  $('#choose-pic').removeClass('noshow');
+  $('#choose-tag').addClass('noshow');
 }
 
-function shuffle(array) {
-  var currentIndex = array.length;
-    
-  while(0 !== currentIndex) {
-    var randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex = currentIndex - 1;
-
-    var temp = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temp;
-  }
-
-  return array;
-}
-
-function getPhotoIndeces(mediaArray) {
-  console.log(mediaArray);
+/**
+ * Choose 4 pictures from the results returned by instagram. If there are
+ * enough options, choose images in the "golden tag zone" (see top of file).
+ * @param {Array} mediaArray the array of pictures returned by instagram.
+ * @return {Array.<Number>} the indices of the chosen pictures.
+ */
+function getPhotoIndices(mediaArray) {
   var chosen = new Array();
+  
+  // If there are less than 4 pictures to choose from, take all that are
+  // available and repeat the last one until there are 4.
   if (mediaArray.length < 4) {
-    for (var i = 0; i < 4; i++){
-      if (i < mediaArray.length){
+    for (var i = 0; i < 4; i++) {
+      if (i < mediaArray.length) {
         chosen.push(i);
-      }
-      else{
+      } else {
         chosen.push(mediaArray.length - 1);
       }
     }
     return chosen;
   }
-  var MAX_TAGS = 7;
-  var MIN_TAGS = 3;
-  var possibleIndeces = new Array();
+
+  var possibleIndices = new Array();
   for (var i = 0; i < mediaArray.length; i++) {
-    possibleIndeces[i] = i;
+    possibleIndices[i] = i;
   }
 
-  var shuffledIndeces = shuffle(possibleIndeces);
-  var highIndices = new Array();
-  var lowIndices = new Array();
-  var noIndices = new Array();
+  // Try to get 4 images in the "golden tag zone"
+  var shuffledIndices = shuffle(possibleIndices);
+  var tooManyTags = new Array();
+  var notEnoughTags = new Array();
+  var noTags = new Array();
   for (var i = 0; i < mediaArray.length; i++) {
     if (chosen.length == 4){
       return chosen;
     }
-    nextIndex = shuffledIndeces[i];
-    console.log("TAGS, TAGS, TAGS AT INDEX"+ nextIndex + ": "+  mediaArray[nextIndex].tags);
+    nextIndex = shuffledIndices[i];
     if(mediaArray[nextIndex].tags.length > MAX_TAGS) {
-      highIndices.push(nextIndex);
-    }
-    else if (mediaArray[nextIndex].tags.length == 0){
-      noIndices.push(nextIndex);
-    }
-    else if (mediaArray[nextIndex].tags.length < MIN_TAGS) {
-      lowIndices.push(nextIndex);
-    }
-    else {
+      tooManyTags.push(nextIndex);
+    } else if (mediaArray[nextIndex].tags.length == 0){
+      noTags.push(nextIndex);
+    } else if (mediaArray[nextIndex].tags.length < MIN_TAGS) {
+      notEnoughTags.push(nextIndex);
+    } else {
       chosen.push(nextIndex);
     }
   }
- // return [1,2,3,4];
+
+  // If 4 images in the "golden tag zone" were not found, choose images not in
+  // the "golden tag zone" with preference to more tags over fewer.
   var i = 0;
   while(chosen.length < 4) {
-    if(i < highIndices.length) {
-      chosen.push(highIndices[i]);
+    if(i < tooManyTags.length) {
+      chosen.push(tooManyTags[i]);
+    } else if (i < notEnoughTags.length){
+      chosen.push(notEnoughTags[i]);
+    } else {
+      // we know at least 4 photos were returned, so if they weren't in any
+      // of the above categories they must be in this one
+      chosen.push(noTags[i]);
     }
-    else if (i - highIndices.length < lowIndices.length){
-      chosen.push(lowIndices[i - highIndices.length ]);
-    }
-    else {
-      chosen.push(noIndices[i - highIndices.length - lowIndices.length]);
-    }
-    i = i + 1;
+    i++;
   }
   return chosen;
 }
 
-function renderImages(response) {
-  var picSize = 225;
-  var array = response.data;
-  var myURLs = new Array();
-  myTags = new Array();
-  var photoIndeces = getPhotoIndeces(array);
-  for (i = 0; i < 4; i++){
-    // var nextIndex = getNextIndex(used, badIndeces, array.length);
-    var firstPic = array[photoIndeces[i]];
-    var images = firstPic.images;
-    var stdRes = images.standard_resolution;
-    var url = stdRes.url;
-    myURLs[i] = url;
-    myTags[i] = firstPic.tags;
-  }
-  previousImgs = myURLs;
-  $( '#pic1' ).html('<img src='+ myURLs[0] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 0 + '"></img>');
-  $( '#pic2' ).html('<img src='+ myURLs[1] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 1 + '"></img>');
-  $( '#pic3' ).html('<img src='+ myURLs[2] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 2 + '"></img>');
-  $( '#pic4' ).html('<img src='+ myURLs[3] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 3 + '"></img>');
-    
-  $( '#choose-pic' ).removeClass('noshow');
-  $( '#choose-tag' ).addClass('noshow');
-
-
+/**
+ * Create the html for one of the 4 images.
+ * @param {String} url the url of the picture to display.
+ * @param {Number} size the size of the displayed picture in pixels.
+ * @param {Number} index which of the 4 images this picture is.
+ * @return {String} a string of the html to display this picture.
+ */
+function createImageHTML(url, size, index) {
+  return '<img src='+ url + ' alt=":(" width="'+ size +
+                    '" height="' + size + '" index="' + index + '"></img>'
 }
 
-function search(tagName) {
-  $('#tags-list').empty();
-  url = 'https://api.instagram.com/v1/tags/' + tagName + '/media/recent?callback=?&client_id=68de522f648043ee922bcf14545cfa7a';
-  $.getJSON(url, renderImages);
+/**
+ * Randomize the order of an array. Does not mutate the array.
+ * @param {Array} the array to be randomized.
+ * @return {Array} the randomized array.
+ */
+function shuffle(array) {
+  var currentIndex = array.length;
+  var shuffledArray = array.slice(0);
+  
+  while(0 !== currentIndex) {
+    var randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex = currentIndex - 1;
+
+    var temp = array[currentIndex];
+    shuffledArray[currentIndex] = shuffledArray[randomIndex];
+    shuffledArray[randomIndex] = temp;
+  }
+
+  return shuffledArray;
 }
