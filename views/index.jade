@@ -3,7 +3,7 @@ extends layout
 block content
   +page-header()
   +instructions()
-  +choose-picture()
+  +choose-pic()
   +choose-tag()
   +end-game()
   +game-status()
@@ -29,8 +29,8 @@ mixin instructions()
 
 // 2x2 grid of pictures. Selecting a picture hides this and shows the
 // choose-tag section.
-mixin choose-picture()
-  div#choose-picture
+mixin choose-pic()
+  div#choose-pic
     table
       tbody
         tr
@@ -46,7 +46,7 @@ mixin choose-picture()
             +tags(false)
 
 // One large picture, with its tags in a sidebar. Selecting a tag hides this
-// and shows the choose-picture section.
+// and shows the choose-pic section.
 mixin choose-tag()
   div#choose-tag.noshow
     span#previous-link &larr;
@@ -98,7 +98,7 @@ mixin game-status()
 mixin credits()
   div By Lily, Indy, Julia, and Danaë at Hack@Brown
 
-// Where image tags are shown. The tag list is hidden if choose-picture is
+// Where image tags are shown. The tag list is hidden if choose-pic is
 // visible
 mixin tags(showTags)
   td(valign="top")

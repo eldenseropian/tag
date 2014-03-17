@@ -1,7 +1,3 @@
-function getPhotosArray(response) {
-  return response.data;
-}
-
 function tagCompare(first, second){
   if (first.tags.length < second.tags.length){
     return 1;
@@ -101,7 +97,7 @@ function getPhotoIndeces(mediaArray) {
 
 function renderImages(response) {
   var picSize = 225;
-  var array = getPhotosArray(response);
+  var array = response.data;
   var myURLs = new Array();
   myTags = new Array();
   var photoIndeces = getPhotoIndeces(array);
@@ -120,8 +116,8 @@ function renderImages(response) {
   $( '#pic3' ).html('<img src='+ myURLs[2] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 2 + '"></img>');
   $( '#pic4' ).html('<img src='+ myURLs[3] + ' alt=":(" width="'+ picSize + '" height="' + picSize + '" index="' + 3 + '"></img>');
     
-  $( '#choose-picture' ).toggleClass('noshow');
-  $( '#choose-tag' ).toggleClass('noshow');
+  $( '#choose-pic' ).removeClass('noshow');
+  $( '#choose-tag' ).addClass('noshow');
 
 
 }
